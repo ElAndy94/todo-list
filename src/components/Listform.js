@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { createPost } from '../store/actions/post';
+import { createItem } from '../store/actions/list';
 
-class Postform extends Component {
+class Listform extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -23,18 +23,18 @@ class Postform extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        const post = {
+        const listItem = {
             title: this.state.title,
             body: this.state.body
         }
 
-        this.props.createPost(post);
+        this.props.createItem(listItem);
     }
 
     render() {
         return (
         <div>
-            <h1>Add Post</h1>
+            <h1>Add List Item</h1>
             <form onSubmit={this.onSubmit}>
                 <div>
                     <label>Title: </label><br/>
@@ -53,8 +53,8 @@ class Postform extends Component {
     }
 }
 
-Postform.propTypes = {
-    createPost: PropTypes.func.isRequired
+Listform.propTypes = {
+    createItem: PropTypes.func.isRequired
 };
 
-export default connect(null,  { createPost })(Postform);
+export default connect(null,  { createItem })(Listform);

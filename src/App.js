@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import logo from './logo.svg';
 import './App.css';
-import Posts from './components/Posts';
-import PostForm from './components/Postform';
+import List from './components/List';
+import ListForm from './components/Listform';
 
 class App extends Component {
   render() {
@@ -12,9 +12,9 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header>
-        <PostForm />
+        <ListForm />
         <hr />
-        <Posts />
+        <List />
       </div>
     );
   }
