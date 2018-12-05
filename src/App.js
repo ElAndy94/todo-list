@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import logo from './logo.svg';
 import './App.css';
-import List from './components/List';
-import ListForm from './components/Listform';
+import List from './components/Lists/List';
+import ListForm from './components/Lists/Listform';
 
 class App extends Component {
   render() {

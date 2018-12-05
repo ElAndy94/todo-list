@@ -1,0 +1,57 @@
+.title__font { 
+    font-family: 'Lobster', cursive;
+    letter-spacing: 2px;
+    transition: all 0.2s;
+}
+
+    .title__font:focus,
+    .title__font:hover {
+        transform: translateY(-3px);
+        animation: standOut 1.5s infinite;
+    }
+
+
+.title__font--list {
+    font-family: 'Anton', sans-serif;
+    letter-spacing: 2px;
+}
+
+.smaller {
+     font-size: 22px;
+}
+
+.body__font {
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+input[type=text] {
+    text-align: center;
+    width: 20%;
+    padding: 6px 10px;
+    margin: 1px 0;
+    box-sizing: border-box;
+    border-radius: 100px;
+}
+
+textarea[type=text] {
+    text-align: center;
+    width: 20%;
+    box-sizing: border-box;
+    border-radius: 100px;
+    padding: 6px 10px;
+    margin: 1px 0;
+}
+
+@keyframes standOut {
+    0% {
+        transform: scale(1);
+        box-shadow: none;
+    }
+
+    100% {
+        transform: scale(1.10);
+    }
+}

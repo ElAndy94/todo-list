@@ -1,3 +1,5 @@
 export {
-    list
+    fetchList,
+    createItem,
+    deleteItem
 } from './list';

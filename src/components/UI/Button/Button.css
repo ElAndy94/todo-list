@@ -1,0 +1,58 @@
+.Button {
+    position: relative;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 100px;
+    font: inherit;
+    padding: 8px !important;
+    margin: 5px !important;
+    font-weight: bold;
+    text-align: center;
+    /* background-color: transparent; */
+    /* color: white; */
+    /* font-size: 16px; */
+}
+  
+.Btn > * {
+    transition: all 0.2s;
+}
+
+.Submit:focus,
+.Submit:hover {
+    transform: translateY(-3px);
+    animation: standOut 1.5s infinite;
+}
+
+.Delete:focus,
+.Delete:hover {
+    transform: translateY(-3px);
+    animation: pulsate 1.5s infinite;
+}
+
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+        box-shadow: none;
+    }
+
+    50% {
+        transform: scale(1.20);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: none;
+    }
+}
+
+@keyframes standOut {
+    0% {
+        transform: scale(1);
+        box-shadow: none;
+    }
+
+    100% {
+        transform: scale(1.30);
+    }
+}

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { createItem } from '../store/actions/list';
+import { createItem } from '../../store/actions/list';
+import Button from '../UI/Button/Button';
+import './List.css';
 
 class Listform extends Component {
     constructor(props) {
@@ -34,19 +36,16 @@ class Listform extends Component {
     render() {
         return (
         <div>
-            <h1>Add List Item</h1>
+            <h1 className="title__font">Add List Item</h1>
             <form onSubmit={this.onSubmit}>
                 <div>
-                    <label>Title: </label><br/>
-                    <input type="text" name="title" onChange={this.onChange} value={this.state.title} />
+                    <input type="text" name="title" placeholder="Title..." onChange={this.onChange} value={this.state.title} />
                 </div>
                 <br />
                 <div>
-                    <label>Body: </label><br/>
-                    <textarea name="body" onChange={this.onChange} value={this.state.body} />
+                    <textarea type="text" name="body" placeholder="Body..." rows="3" onChange={this.onChange} value={this.state.body} />
                 </div>
-                <br />
-                <button type="submit">Submit</button>
+                <Button btnType="Submit" type="submit">Submit</Button>
             </form>
         </div>
         )

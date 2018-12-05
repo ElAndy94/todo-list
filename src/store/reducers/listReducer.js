@@ -18,6 +18,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 item: action.payload
             };
+        case actionTypes.DELETE_ITEM:
+            return {
+                ...state,
+                items: action.payload
+            };
         default: 
             return state;
     }
