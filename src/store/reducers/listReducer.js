@@ -1,5 +1,4 @@
 import * as actionTypes from '../actions/actionTypes';
-// import { updateObject } from '../../shared/utility';
 
 const initialState = {
     items: [],
@@ -19,6 +18,11 @@ const reducer = (state = initialState, action) => {
                 item: action.payload
             };
         case actionTypes.DELETE_ITEM:
+            return {
+                ...state,
+                items: action.payload
+            };
+        case actionTypes.EDIT_ITEM:
             return {
                 ...state,
                 items: action.payload

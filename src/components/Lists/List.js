@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-// import { fetchList, deleteItem } from '../../store/actions/list';
 import * as actions from '../../store/actions/index';
 import Button from '../UI/Button/Button';
 import './List.css';
@@ -10,8 +9,16 @@ import './List.css';
 class List extends Component {
     constructor(props) {
         super(props)
-      
-        this.onDelete = this.onDelete.bind(this);
+        
+        this.state = {
+            counter: 0,
+            itemToEdit: '',
+            body: '',
+            editing: false
+        }
+
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
     componentWillMount() {
         this.props.fetchList();
@@ -23,17 +30,39 @@ class List extends Component {
         }
     }
 
-    onDelete = (e) => { this.props.deleteItem(e.target.dataset.id) }
+    onChange(e) {
+        this.setState({[ e.target.name]: e.target.value });
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+
+        const itemGettingEdit = {
+            title: this.state.itemToEdit,
+            body: this.state.body
+        }
+        console.log(itemGettingEdit);
+        // this.props.editItem(itemGettingEdit);
+    }
+
+    // onDelete = (e) => { this.props.deleteItem(e.target.dataset.id); }
 
     // onDelete = (e) => {
-    //     console.log('hi');
-    //     this.props.deleteItem(e.target.dataset.id);
+        // this.props.deleteItem(e.target.dataset.id);
     // }
-    // onDelete = (id) => {
-    //     console.log('hit');
-    //     this.props.deleteItem(id);
-        // return () => this.props.deleteItem(id);
-    // }
+
+    onDelete = (id) => {
+        if (this.state.counter === 1){
+            this.props.deleteItem(id, true);
+            return;
+        }
+        this.props.deleteItem(id, false);
+        this.setState({ counter: 1 });
+    }
+
+    onEdit = (id) => {
+       this.setState({ itemToEdit: id, editing: true });
+    }
 
     // onDelete = (id) => () => this.props.deleteItem(id);
 
@@ -41,20 +70,30 @@ class List extends Component {
         const listItems = this.props.list.map(itemInList => (
             <div key={itemInList.id}> 
                 <h3 className="title__font--list smaller">{itemInList.title} 
-                    <Button 
+                    <Button  
                         btnType="Delete" 
-                        data-id={itemInList.id}
-                        onClick={this.onDelete}>
-                        {/* // onClick={() => this.onDelete(itemInList.id)}> */}
-                        {/* // onClick={this.onDelete.bind(itemInList.id)}>  */}
-                        <i className="fas fa-trash-alt"></i>
+                        clicked={() => this.onDelete(itemInList.id)}>
+                        {/*  data-id={itemInList.id} */}
+                       <i className="fas fa-trash-alt"></i> 
+                    </Button>
+                    <Button  
+                        btnType="Edit" 
+                        clicked={() => this.onEdit(itemInList.id)}>
+                        <i className="fas fa-edit"></i>
                     </Button>
                 </h3>
-                <p className="body__font">{itemInList.body}</p>
+                { this.state.itemToEdit === itemInList.id && this.state.editing ?
+                    <form onSubmit={this.onSubmit}>
+                    <textarea type="text" name="body" placeholder="Body..." value={itemInList.body} rows="3" onChange={this.onChange} /> 
+                    <Button btnType="Submit" type="submit">Submit</Button>
+                    </form>
+                    : 
+                    <p className="body__font">{itemInList.body}</p> 
+                }
             </div>
         ));
         return (
-        <div>
+        <div className="max__size">
             <h1 className="title__font">List</h1>
             { listItems }
         </div>
@@ -76,9 +115,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return {
         fetchList: () => dispatch( actions.fetchList() ),
-        deleteItem: (id) => dispatch( actions.deleteItem(id) )
+        deleteItem: (id, bool) => dispatch( actions.deleteItem(id, bool) ),
+        editItem: (id, bool) => dispatch( actions.editItem(id, bool) )
     };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);
-// export default connect(mapStateToProps, { fetchList, deleteItem })(List);

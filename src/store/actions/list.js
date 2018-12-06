@@ -52,6 +52,7 @@ let list = [
         "body": "quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error"
     }
 ] 
+let filteredItems = null;
 
 export const fetchList = () => dispatch => {
     dispatch({
@@ -69,20 +70,41 @@ export const createItem = (itemData) => dispatch => {
     })
 };
 
-export const deleteItem = (id) => dispatch => {
+export const deleteItem = (id, bool) => dispatch => {
     console.log(id);
-    // var filtered = list.filter(function(el) { return el.id !== id; });
-    // const newList = list() => {
-    //     if(list.id === id) {
-    //         list.splice(0,1);
-    //         return list;
-    //     }
+    // let hasFiltered = bool;
+
+    if (bool === false) {
+        let filtered = list.filter(item => item.id !== id);
+        dispatch({
+            type: actionTypes.DELETE_ITEM,
+            payload: filtered
+        })
+        filteredItems = filtered;
+    } else {
+        let filtered = filteredItems.filter(item => item.id !== id);
+        dispatch({
+            type: actionTypes.DELETE_ITEM,
+            payload: filtered
+        })
+        filteredItems = filtered; 
+    }
+};
+
+export const editItem = (id, bool) => dispatch => {
+    // if (bool === false) {
+    //     let filtered = list.filter(item => item.id !== id);
+    //     dispatch({
+    //         type: actionTypes.DELETE_ITEM,
+    //         payload: filtered
+    //     })
+    //     filteredItems = filtered;
+    // } else {
+    //     let filtered = filteredItems.filter(item => item.id !== id);
+    //     dispatch({
+    //         type: actionTypes.DELETE_ITEM,
+    //         payload: filtered
+    //     })
+    //     filteredItems = filtered; 
     // }
-    // let filtered = list.filter(item => item.id !== id);
-    let filtered = list;
-    console.log(filtered);
-    dispatch({
-        type: actionTypes.DELETE_ITEM,
-        payload: filtered
-    })
 };
