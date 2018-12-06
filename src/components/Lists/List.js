@@ -36,13 +36,14 @@ class List extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-
+        console.log(e);
         const itemGettingEdit = {
             title: this.state.itemToEdit,
             body: this.state.body
         }
         console.log(itemGettingEdit);
-        // this.props.editItem(itemGettingEdit);
+        this.setState({itemToEdit: '', editing: false});
+        this.props.editItem(itemGettingEdit);
     }
 
     // onDelete = (e) => { this.props.deleteItem(e.target.dataset.id); }
@@ -60,8 +61,8 @@ class List extends Component {
         this.setState({ counter: 1 });
     }
 
-    onEdit = (id) => {
-       this.setState({ itemToEdit: id, editing: true });
+    onEdit = (id, body) => {
+       this.setState({ itemToEdit: id, editing: true, body: body });
     }
 
     // onDelete = (id) => () => this.props.deleteItem(id);
@@ -78,14 +79,15 @@ class List extends Component {
                     </Button>
                     <Button  
                         btnType="Edit" 
-                        clicked={() => this.onEdit(itemInList.id)}>
+                        clicked={() => this.onEdit(itemInList.id, itemInList.body)}>
                         <i className="fas fa-edit"></i>
                     </Button>
                 </h3>
-                { this.state.itemToEdit === itemInList.id && this.state.editing ?
+                { 
+                    this.state.itemToEdit === itemInList.id && this.state.editing ?
                     <form onSubmit={this.onSubmit}>
-                    <textarea type="text" name="body" placeholder="Body..." value={itemInList.body} rows="3" onChange={this.onChange} /> 
-                    <Button btnType="Submit" type="submit">Submit</Button>
+                        <textarea type="text" name="body" placeholder={itemInList.body} value={this.state.body} rows="3" onChange={this.onChange} /> 
+                        <Button btnType="Submit" type="submit">Submit</Button>
                     </form>
                     : 
                     <p className="body__font">{itemInList.body}</p> 
@@ -116,7 +118,7 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchList: () => dispatch( actions.fetchList() ),
         deleteItem: (id, bool) => dispatch( actions.deleteItem(id, bool) ),
-        editItem: (id, bool) => dispatch( actions.editItem(id, bool) )
+        editItem: (itemGettingEdit) => dispatch( actions.editItem(itemGettingEdit) )
     };
 };
 

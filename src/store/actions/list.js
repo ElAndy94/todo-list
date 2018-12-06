@@ -91,7 +91,7 @@ export const deleteItem = (id, bool) => dispatch => {
     }
 };
 
-export const editItem = (id, bool) => dispatch => {
+export const editItem = (data) => dispatch => {
     // if (bool === false) {
     //     let filtered = list.filter(item => item.id !== id);
     //     dispatch({
