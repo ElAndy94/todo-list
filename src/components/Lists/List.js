@@ -36,14 +36,19 @@ class List extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        console.log(e);
         const itemGettingEdit = {
-            title: this.state.itemToEdit,
+            id: this.state.itemToEdit,
             body: this.state.body
         }
-        console.log(itemGettingEdit);
-        this.setState({itemToEdit: '', editing: false});
-        this.props.editItem(itemGettingEdit);
+ 
+        if (this.state.counter === 1) {
+            this.setState({itemToEdit: '', editing: false});
+            this.props.editItem(itemGettingEdit, true);
+            return;
+        }
+
+        this.setState({itemToEdit: '', editing: false, counter: 1});
+        this.props.editItem(itemGettingEdit, false);
     }
 
     // onDelete = (e) => { this.props.deleteItem(e.target.dataset.id); }
@@ -117,8 +122,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return {
         fetchList: () => dispatch( actions.fetchList() ),
-        deleteItem: (id, bool) => dispatch( actions.deleteItem(id, bool) ),
-        editItem: (itemGettingEdit) => dispatch( actions.editItem(itemGettingEdit) )
+        deleteItem: (id, prevFiltered) => dispatch( actions.deleteItem(id, prevFiltered) ),
+        editItem: (itemGettingEdit, prevFiltered) => dispatch( actions.editItem(itemGettingEdit, prevFiltered) )
     };
 };
 

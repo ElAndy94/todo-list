@@ -70,41 +70,45 @@ export const createItem = (itemData) => dispatch => {
     })
 };
 
-export const deleteItem = (id, bool) => dispatch => {
-    console.log(id);
-    // let hasFiltered = bool;
-
-    if (bool === false) {
-        let filtered = list.filter(item => item.id !== id);
+export const deleteItem = (id, prevFiltered) => dispatch => {
+    if (prevFiltered) {
+        filteredItems = filteredItems.filter(item => item.id !== id);
         dispatch({
             type: actionTypes.DELETE_ITEM,
-            payload: filtered
+            payload: filteredItems
         })
-        filteredItems = filtered;
     } else {
-        let filtered = filteredItems.filter(item => item.id !== id);
+        filteredItems = list.filter(item => item.id !== id);
         dispatch({
             type: actionTypes.DELETE_ITEM,
-            payload: filtered
+            payload: filteredItems
         })
-        filteredItems = filtered; 
     }
 };
 
-export const editItem = (data) => dispatch => {
-    // if (bool === false) {
-    //     let filtered = list.filter(item => item.id !== id);
-    //     dispatch({
-    //         type: actionTypes.DELETE_ITEM,
-    //         payload: filtered
-    //     })
-    //     filteredItems = filtered;
-    // } else {
-    //     let filtered = filteredItems.filter(item => item.id !== id);
-    //     dispatch({
-    //         type: actionTypes.DELETE_ITEM,
-    //         payload: filtered
-    //     })
-    //     filteredItems = filtered; 
-    // }
+export const editItem = (data, prevFiltered) => dispatch => {
+    console.log(data);
+    if (prevFiltered) {
+        filteredItems = filteredItems.map( (item) => {
+            if (item.id === data.id) {
+                item.body = data.body
+            }
+            return item;
+        });
+        dispatch({
+            type: actionTypes.EDIT_ITEM,
+            payload: filteredItems
+        });
+    } else {
+        filteredItems = list.map( (item) => {
+            if (item.id === data.id) {
+                item.body = data.body
+            }
+            return item;
+        });
+        dispatch({
+            type: actionTypes.EDIT_ITEM,
+            payload: filteredItems
+        });
+    }
 };
