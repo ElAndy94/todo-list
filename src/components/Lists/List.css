@@ -20,8 +20,13 @@
 .title__font--list {
     font-family: 'Lobster', cursive;
     letter-spacing: 2px;
+    transition: all 0.2s;
     /* font-family: 'Anton', sans-serif; */
 }
+    .title__font--list span:focus,
+    .title__font--list span:hover {
+        text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+    }
 
 .smaller {
      font-size: 22px;
@@ -41,6 +46,7 @@ input[type=text] {
     margin: 1px 0;
     box-sizing: border-box;
     font-size: 17px;
+    outline: none;
     /* border-radius: 100px; */
 }
 
@@ -51,6 +57,7 @@ textarea[type=text] {
     padding: 6px 10px;
     margin: 1px 0;
     font-size: 17px;
+    outline: none;
     /* border-radius: 100px; */
 }
 

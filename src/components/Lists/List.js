@@ -75,7 +75,7 @@ class List extends Component {
     render() {
         const listItems = this.props.list.map(itemInList => (
             <div key={itemInList.id}> 
-                <h3 className="title__font--list smaller">{itemInList.title} 
+                <h3 className="title__font--list smaller"> <span>{itemInList.title} </span>
                     <Button  
                         btnType="Delete" 
                         clicked={() => this.onDelete(itemInList.id)}>
@@ -103,6 +103,7 @@ class List extends Component {
         <div className="max__size">
             <h1 className="title__font">List</h1>
             { listItems }
+            <br/>
         </div>
         );
     };
