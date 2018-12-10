@@ -87,7 +87,6 @@ export const deleteItem = (id, prevFiltered) => dispatch => {
 };
 
 export const editItem = (data, prevFiltered) => dispatch => {
-    console.log(data);
     if (prevFiltered) {
         filteredItems = filteredItems.map( (item) => {
             if (item.id === data.id) {
